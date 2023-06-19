@@ -50,6 +50,13 @@ public class MyServlet extends HttpServlet {
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 		connection.setRequestMethod(method);
+        connection.setDoOutput(true);
+
+        DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+        outputStream.writeBytes("DATA");
+        outputStream.flush();
+        outputStream.close();
+		
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		StringBuffer stringBuffer = new StringBuffer();
 		String inputLine;
