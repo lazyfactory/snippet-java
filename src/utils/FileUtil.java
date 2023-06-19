@@ -8,9 +8,9 @@ public class FileUtil {
 	public static void main(String[] args) {
 		List<String> list = readFile("sample.txt");
 		System.out.println(list.get(0));
-		
+
 		readJsonFile("sample.json");
-		
+
 		saveFile("test.txt", "test data");
 	}
 
@@ -49,15 +49,23 @@ public class FileUtil {
 				JsonObject obj = gson.fromJson(route, JsonObject.class);
 				routesMap.put(obj.get("pathPrefix").getAsString(), obj.get("url").getAsString());
 			}
-			
-			System.out.println(port);
 
+			System.out.println(port);
+			System.out.println(jsonObj.toString());
+
+			// add
+			jsonObj.addProperty("newProp", "newValue");
+			System.out.println(jsonObj.toString());
+			
+			JsonElement newElement = gson.fromJson("{\"new\":\"prop\"}", JsonElement.class);
+			jsonObj.add("newObj", newElement);
+			System.out.println(gson.toJson(jsonObj));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void saveFile(String path, String data) {
 		FileWriter fw = null;
 		try {
@@ -76,7 +84,7 @@ public class FileUtil {
 			}
 		}
 	}
-	
+
 	// e.g. path = SUPPORT\\CREATE.EXE
 	public static void execute(String path, String data) {
 
