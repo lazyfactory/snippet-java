@@ -76,4 +76,37 @@ public class FileUtil {
 			}
 		}
 	}
+	
+	// e.g. path = SUPPORT\\CREATE.EXE
+	public static void execute(String path, String data) {
+
+		try {
+			ProcessBuilder processBuilder = new ProcessBuilder();
+			// Windows
+
+			processBuilder.command("cmd.exe", "/c", path, data);
+
+			// saveFile("OUTFILE/TEMP.TXT", data);
+			// processBuilder.redirectInput(new File("OUTFILE", "TEMP.txt"));
+			// processBuilder.redirectInput(ProcessBuilder.Redirect.INHERIT);
+
+			// processBuilder.command("cmd", "/c", "dir");
+
+			// processBuilder.directory(new File("."));
+			Process process = processBuilder.start();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+			// Reader inputString = new StringReader(data);
+			// BufferedReader reader = new BufferedReader(inputString);
+
+			String line;
+			while ((line = reader.readLine()) != null) {
+				line = reader.readLine();
+				System.out.println(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
