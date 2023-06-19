@@ -50,6 +50,7 @@ public class MyServlet extends HttpServlet {
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 		connection.setRequestMethod(method);
+//		connection.setRequestProperty("User-Agent", USER_AGENT); // for header
         connection.setDoOutput(true);
 
         DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
