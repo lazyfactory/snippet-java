@@ -1,8 +1,9 @@
 package utils;
 
-import java.util.*;https://github.com/lazyfactory/snippet-java/tree/main/src/utils
-import java.io.*;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class JsonParse {
   public static JsonObject parse(String json) {
@@ -10,4 +11,13 @@ public class JsonParse {
     JsonElement element = parser.parse(str);
     return element.getAsJsonObject();
  }
+
+	static String getJson(JsonObject respObj) {
+		GsonBuilder builder = new GsonBuilder();
+		builder.setPrettyPrinting();
+		Gson gson = builder.create();
+		
+		return gson.toJson(respObj);
+	}
+  
 }
