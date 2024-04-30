@@ -4,6 +4,7 @@ import com.google.gson.*;
 
 public class JsonParse {
 	static void makeJson() {
+		Gson gson = new Gson();
 		JsonObject jsonObject = new JsonObject();        
 		jsonObject.addProperty("name", "anna");        
 		jsonObject.addProperty("id", 1);         // JsonObject를 Json 문자열로 변환        
