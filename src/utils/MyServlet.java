@@ -44,37 +44,54 @@ public class MyServlet extends HttpServlet {
 		res = request(url, req.getMethod(), res);
 	}
 
-	public static String getBody(HttpServletRequest request) throws IOException {
-	 
-	        String body = null;
-	        StringBuilder stringBuilder = new StringBuilder();
-	        BufferedReader bufferedReader = null;
-	 
-	        try {
-	            InputStream inputStream = request.getInputStream();
-	            if (inputStream != null) {
-	                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-	                char[] charBuffer = new char[128];
-	                int bytesRead = -1;
-	                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-	                    stringBuilder.append(charBuffer, 0, bytesRead);
-	                }
-	            }
-	        } catch (IOException ex) {
-	            throw ex;
-	        } finally {
-	            if (bufferedReader != null) {
-	                try {
-	                    bufferedReader.close();
-	                } catch (IOException ex) {
-	                    throw ex;
-	                }
-	            }
-	        }
-	 
-	        body = stringBuilder.toString();
-	        return body;
+	static JsonObject getBody(HttpServletRequest req) {
+		StringBuffer json = new StringBuffer();
+		String line = null;
+
+		try {
+			BufferedReader reader = req.getReader();
+			while ((line = reader.readLine()) != null) {
+				json.append(line);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return (JsonObject) JsonParser.parseString(json.toString());
 	}
+
+	// public static String getBody(HttpServletRequest request) throws IOException {
+	 
+	//         String body = null;
+	//         StringBuilder stringBuilder = new StringBuilder();
+	//         BufferedReader bufferedReader = null;
+	 
+	//         try {
+	//             InputStream inputStream = request.getInputStream();
+	//             if (inputStream != null) {
+	//                 bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+	//                 char[] charBuffer = new char[128];
+	//                 int bytesRead = -1;
+	//                 while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+	//                     stringBuilder.append(charBuffer, 0, bytesRead);
+	//                 }
+	//             }
+	//         } catch (IOException ex) {
+	//             throw ex;
+	//         } finally {
+	//             if (bufferedReader != null) {
+	//                 try {
+	//                     bufferedReader.close();
+	//                 } catch (IOException ex) {
+	//                     throw ex;
+	//                 }
+	//             }
+	//         }
+	 
+	//         body = stringBuilder.toString();
+	//         return body;
+	// }
 
 	HttpServletResponse request(String reqUrl, String method, HttpServletResponse res) throws IOException {
 		System.out.println(reqUrl + " requested....");
