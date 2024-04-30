@@ -1,12 +1,9 @@
 package utils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 public class JsonParse {
-  public static JsonObject parse(String json) {
+  public static JsonObject parse(String str) {
     JsonParser parser = new JsonParser();
     JsonElement element = parser.parse(str);
     return element.getAsJsonObject();
